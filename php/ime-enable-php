@@ -1,0 +1,21 @@
+#! /bin/bash
+
+APACHEDIR="/etc/apache2/php-enabled"
+POOLDIR="/etc/php/7.3/fpm/pool.d"
+APACHETEMPLATE="apache-php-template.conf"
+FPMTEMPLATE="fpm-template.conf"
+USERNAME="$1"
+
+if [ "$USERNAME" == "" ]
+then
+    echo "username precisa ser especificado"
+    exit
+fi
+
+cd /root/php
+GROUPNAME=$(id -gn $USERNAME)
+
+sed -e s/USERNAME/"$USERNAME"/ -e s/GROUPNAME/"$GROUPNAME"/ $APACHETEMPLATE > $APACHEDIR/"$USERNAME".conf
+sed -e s/USERNAME/"$USERNAME"/ -e s/GROUPNAME/"$GROUPNAME"/ $FPMTEMPLATE > $POOLDIR/"$USERNAME".conf
+
+echo php habilitado para $USERNAME. reinicie o php-fpm e o apache.

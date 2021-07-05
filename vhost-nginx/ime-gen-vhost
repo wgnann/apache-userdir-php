@@ -1,0 +1,19 @@
+#! /bin/bash
+
+NGINXDIR="/etc/nginx"
+NGINXTEMPLATE="nginx-template"
+DOMAINNAME="$1"
+
+if [ "$DOMAINNAME" == "" ]
+then
+    echo "domain_name_non_fqdn precisa ser especificado."
+    echo "uso: ime-gen-vhost <domain_name_non_fqdn>"
+    exit
+fi
+
+cd /root/vhost
+sed -e s/DOMAINNAME/"$DOMAINNAME"/ $NGINXTEMPLATE > $NGINXDIR/sites-available/$DOMAINNAME
+ln -s $NGINXDIR/sites-available/$DOMAINNAME $NGINXDIR/sites-enabled/$DOMAINNAME
+
+echo vhost $DOMAINNAME.ime.usp.br criado. reiniciando o nginx.
+/usr/sbin/service nginx reload

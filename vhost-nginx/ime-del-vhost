@@ -1,0 +1,17 @@
+#! /bin/bash
+
+NGINXDIR="/etc/nginx"
+DOMAINNAME="$1"
+
+if [ "$DOMAINNAME" == "" ]
+then
+    echo "domain_name_non_fqdn precisa ser especificado."
+    echo "uso: ime-del-vhost <domain_name_non_fqdn>"
+    exit
+fi
+
+rm -i $NGINXDIR/sites-enabled/$DOMAINNAME
+rm -i $NGINXDIR/sites-available/$DOMAINNAME
+
+echo vhost $DOMAINNAME.ime.usp.br removido. reiniciando o nginx.
+/usr/sbin/service nginx reload
