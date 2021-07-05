@@ -1,5 +1,7 @@
 # apache-userdir-php
-Ferramentas e modelo de administração de apache com mod_userdir e php-fpm
+Ferramentas e modelo de administração de apache com mod_userdir e php-fpm.
+
+A ideia é subir, atrás de um nginx de entrada, um apache2 com php-fpm que seja habilitado por usuário. Essencialmente criaremos um pool do tipo _ondemand_ por usuário e o referenciaremos a partir de um arquivo de configuração do apache. Isso permite que cada usuário tenha seu conjunto de processos que rodam PHP sem comprometer o servidor todo como no caso de um CGI ou mesmo do mod-php. Os scripts automatizam esse processo.
 
 ## setup
 No nginx:
