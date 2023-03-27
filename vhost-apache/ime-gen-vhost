@@ -10,7 +10,14 @@ if [ "$DOMAINNAME" == "" ]
 then
     echo "faltou DOMAINNAME"
     echo "uso: ime-gen-vhost <domain_name_non_fqdn> [document_root] [admin]"
-    exit
+    exit 1
+fi
+
+host $DOMAINNAME
+if [ $? -ne 0 ]
+then
+    echo "não encontrei o DNS"
+    exit 1
 fi
 
 if [ "$DOCUMENTROOT" == "" ]
@@ -24,7 +31,7 @@ else
         read CERTEZA
         if [[ "$CERTEZA" != [sS]* ]]
         then
-            exit
+            exit 1
         fi
     fi
 fi
@@ -43,5 +50,3 @@ echo vhost $DOMAINNAME.ime.usp.br criado. reiniciando o apache.
 
 echo propagando para o nginx.
 /usr/bin/ssh vhost@cache sudo /usr/local/bin/ime-gen-vhost $DOMAINNAME
-
-echo não se esqueça do DNS.

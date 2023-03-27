@@ -17,3 +17,6 @@ ln -s $NGINXDIR/sites-available/$DOMAINNAME $NGINXDIR/sites-enabled/$DOMAINNAME
 
 echo vhost $DOMAINNAME.ime.usp.br criado. reiniciando o nginx.
 /usr/sbin/service nginx reload
+
+echo criando certificado para $DOMAINNAME.ime.usp.br.
+/usr/bin/certbot --nginx -d $DOMAINNAME.ime.usp.br
