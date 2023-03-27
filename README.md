@@ -12,3 +12,23 @@ No nginx:
 No apache:
 1. criar diretório `/etc/apache2/php-enabled`
 2. adicionar o [etc/userphp.conf](etc/userphp.conf) em `/etc/apache2/conf-enabled` e habilitá-lo
+
+## como usar
+Para ativar o PHP, logar no **apache** e rodar:
+
+`./ime-enable-php username`, onde `username` é o nome do usuário.
+
+Exemplo:
+```bash
+./ime-enable-php rickastley
+```
+
+Para criar o virtual host:
+1. criar a entrada de DNS
+2. logar no **apache** e rodar `./ime-gen-vhost domínio_não_fqdn`
+
+Exemplo:
+```bash
+# se o domínio for rickastley.ime.usp.br
+./ime-gen-vhost rickastley
+```
